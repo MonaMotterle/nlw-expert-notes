@@ -10,11 +10,21 @@ export interface INote {
 }
 
 export function App() {
+  const [search, setSearch] = useState('');
   const [notes, setNotes] = useState<INote[]>(() => {
     const notesOnStorage = localStorage.getItem('@nlw-expert-notes');
 
     return notesOnStorage ? JSON.parse(notesOnStorage) : [];
   });
+  
+  const filteredNotes = search !== '' ? notes.filter(note => note.content.toLowerCase().includes(search.toLowerCase())) : notes;
+
+  function handleSearchNote(event: ChangeEvent<HTMLInputElement>) {
+    const query = event.target.value;
+
+    setSearch(query)
+  }
+
   const onCreateNote = (content: string) => {
     const newNotesArray = [
       {
@@ -38,6 +48,8 @@ export function App() {
         <input
           type="text"
           placeholder="Busque em suas notas..."
+          value={search}
+          onChange={handleSearchNote}
           className="w-full bg-transparent text-3xl font-semibold tracking-tight outline-none placeholder:text-slate-500"
         />
       </form>
@@ -47,7 +59,7 @@ export function App() {
       <div className="grid grid-cols-3 auto-rows-[250px] gap-6">
         <NewNoteCard onCreateNote={onCreateNote} />
 
-        {notes.map(note => <NoteCard note={note} />)}
+        {filteredNotes.map(note => <NoteCard note={note} />)}
       </div>
     </div>
   )
