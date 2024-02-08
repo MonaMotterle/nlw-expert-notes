@@ -1,8 +1,23 @@
 import logo from './assets/logo-nlw-expert.svg'
 import {NewNoteCard} from "./components/NewNoteCard.tsx";
 import {NoteCard} from "./components/NoteCard.tsx";
-export function App() {
 
+const notes = [
+  {
+    date: new Date(),
+    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam aut delectus doloribus error, est exercitationem fuga laudantium magni repellendus temporibus vitae voluptas voluptatibus. Consectetur mollitia quis sapiente tempore voluptate."
+  },
+  {
+    date: new Date(),
+    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur eos eum eveniet ex exercitationem fugit id iste laudantium molestiae nesciunt obcaecati odit pariatur quaerat quis, sapiente soluta, tenetur, voluptatem!"
+  },
+  {
+    date: new Date(),
+    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet porro quidem voluptate. Architecto dolorum error est eum fuga rerum. Blanditiis cupiditate id inventore magnam maxime optio quasi, sequi tempore voluptas!"
+  },
+]
+
+export function App() {
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6">
       <img src={logo} alt="NLW expert"/>
@@ -20,9 +35,7 @@ export function App() {
       <div className="grid grid-cols-3 auto-rows-[250px] gap-6">
         <NewNoteCard />
 
-        <NoteCard />
-        <NoteCard />
-        <NoteCard />
+        {notes.map(note => <NoteCard note={note} />)}
       </div>
     </div>
   )
