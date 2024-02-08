@@ -25,7 +25,7 @@ export function App() {
     setSearch(query)
   }
 
-  const onCreateNote = (content: string) => {
+  function onCreateNote(content: string) {
     const newNotesArray = [
       {
         id: crypto.randomUUID(),
@@ -40,6 +40,7 @@ export function App() {
     localStorage.setItem('@nlw-expert-notes', JSON.stringify(newNotesArray))
   }
 
+  
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6">
       <img src={logo} alt="NLW expert"/>
@@ -59,7 +60,7 @@ export function App() {
       <div className="grid grid-cols-3 auto-rows-[250px] gap-6">
         <NewNoteCard onCreateNote={onCreateNote} />
 
-        {filteredNotes.map(note => <NoteCard note={note} />)}
+        {filteredNotes.map(note => <NoteCard key={note.id} note={note} />)}
       </div>
     </div>
   )
